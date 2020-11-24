@@ -1,0 +1,22 @@
+server:
+  port: 18000
+  servlet:
+    context-path: /intelligentjoy-advertising-api-web
+  tomcat:
+    uri-encoding: UTF-8
+
+application:
+  name: intelligentjoy-advertising-api-web
+  version: 0.0.1
+
+debug: false
+
+logging:
+  level:
+    org:
+      springframework: info
+
+spring:
+  jackson:
+    date-format:  yyyy-MM-dd HH:mm:ss
+    time-zone:  GMT+8

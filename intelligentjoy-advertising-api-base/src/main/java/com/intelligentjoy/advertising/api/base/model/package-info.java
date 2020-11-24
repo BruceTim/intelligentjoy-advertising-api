@@ -1,0 +1,1 @@
+package com.intelligentjoy.advertising.api.base.model;
