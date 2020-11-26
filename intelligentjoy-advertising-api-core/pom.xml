@@ -13,6 +13,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.intelligentjoy.advertising</groupId>
 			<artifactId>intelligentjoy-advertising-api-base</artifactId>
 			<version>${project.version}</version>

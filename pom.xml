@@ -22,6 +22,11 @@
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <slf4j.version>1.7.30</slf4j.version>
         <org.springframework.boot>2.4.0</org.springframework.boot>
+        <mysql.version>8.0.17</mysql.version>
+        <druid.version>1.1.12</druid.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <pay.version>2.13.1</pay.version>
+        <pay.starter.version>0.0.4</pay.starter.version>
 
         <!-- 默认构建环境 -->
         <build.env>local</build.env>
@@ -41,9 +46,55 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 聚合支付-->
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-java-unoin</artifactId>
+                <version>${pay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-java-paypal</artifactId>
+                <version>${pay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-java-wx</artifactId>
+                <version>${pay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-java-ali</artifactId>
+                <version>${pay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-spring-boot-starter</artifactId>
+                <version>${pay.starter.version}</version>
+            </dependency>
+            <!-- 聚合支付-->
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!--druid数据源-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--mysql坐标-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!--JDBC坐标-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
                 <version>${org.springframework.boot}</version>
             </dependency>
             <dependency>
