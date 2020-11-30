@@ -6,3 +6,11 @@ spring:
     username: intelligentjoy
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+
+#showSql
+logging:
+  level:
+    com:
+      intelligentjoy:
+        advertising:
+          api: info

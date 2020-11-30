@@ -9,6 +9,7 @@ application:
   name: intelligentjoy-advertising-api-web
   version: 0.0.1
 
+#showSql
 logging:
   level:
     org:
@@ -20,3 +21,20 @@ spring:
   jackson:
     date-format:  yyyy-MM-dd HH:mm:ss
     time-zone:  GMT+8
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.intelligentjoy.advertising.api.base.model
+
+shiro:
+  web:
+    enabled: true
+  annotations:
+    enabled: true
+  loginUrl: /login
+  sessionManager:
+    deleteInvalidSessions: true
+    sessionIdCookieEnabled: true
+    cookie:
+      name: ijad-session
+

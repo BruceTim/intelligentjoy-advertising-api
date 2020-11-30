@@ -5,4 +5,11 @@ spring:
     url: jdbc:mysql://www.brucehome.cn:3306/intelligentjoy_advertising
     username: intelligentjoy
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    com:
+      intelligentjoy:
+        advertising:
+          api: debug
