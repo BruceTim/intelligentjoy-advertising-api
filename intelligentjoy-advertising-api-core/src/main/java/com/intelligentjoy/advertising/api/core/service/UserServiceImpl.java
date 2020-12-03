@@ -21,16 +21,23 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public User getUserByName(String name) {
-        return null;
+        User user = new User();
+        user.setUserName(name);
+        return userDao.selectOne(user);
     }
 
     @Override
     public User getUserByPhone(String phoneAreaCode, String phone) {
-        return null;
+        User user = new User();
+        user.setPhoneAreaCode(phoneAreaCode);
+        user.setPhone(phone);
+        return userDao.selectOne(user);
     }
 
     @Override
-    public User getUserByEmail(String name) {
-        return null;
+    public User getUserByEmail(String email) {
+        User user = new User();
+        user.setEmail(email);
+        return userDao.selectOne(user);
     }
 }

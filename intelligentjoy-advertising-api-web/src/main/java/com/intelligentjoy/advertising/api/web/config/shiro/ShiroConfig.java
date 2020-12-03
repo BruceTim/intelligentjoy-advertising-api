@@ -1,18 +1,33 @@
 package com.intelligentjoy.advertising.api.web.config.shiro;
 
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
 public class ShiroConfig {
 
     @Bean
-    public CustomRealm customRealm() {
-        return new CustomRealm();
+    public UserNameRealm customRealm() {
+        UserNameRealm customRealm = new UserNameRealm();
+        customRealm.initCredentialsMatcher();
+        return customRealm;
+    }
+
+    @Bean
+    public PhonePasswordRealm phonePasswordRealm() {
+        PhonePasswordRealm phonePasswordRealm = new PhonePasswordRealm();
+        phonePasswordRealm.initCredentialsMatcher();
+        return phonePasswordRealm;
     }
 
     @Bean
@@ -23,7 +38,10 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(customRealm());
+        List<Realm> realms = new ArrayList<>(2);
+        realms.add(customRealm());
+        realms.add(phonePasswordRealm());
+        securityManager.setRealms(realms);
         return securityManager;
     }
 
@@ -34,5 +52,15 @@ public class ShiroConfig {
         defaultAdvisorAutoProxyCreator.setUsePrefix(true);
         return defaultAdvisorAutoProxyCreator;
     }
+
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("favicon.ico", "anon");
+        chainDefinition.addPathDefinition("/login", "anon");
+        chainDefinition.addPathDefinition("/**", "user");
+        return chainDefinition;
+    }
+
 
 }

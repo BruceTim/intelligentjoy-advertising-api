@@ -5,9 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 用户
@@ -55,6 +57,12 @@ public class User implements Serializable {
 
     @Column(name = "update_time")
     private Date updateTime;
+
+    @Transient
+    private Set<String> roles = new HashSet<>();
+
+    @Transient
+    private Set<String> resources = new HashSet<>();
 
     public Integer getUserId() {
         return userId;
@@ -150,5 +158,21 @@ public class User implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    public Set<String> getResources() {
+        return resources;
+    }
+
+    public void setResources(Set<String> resources) {
+        this.resources = resources;
     }
 }
