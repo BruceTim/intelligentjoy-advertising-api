@@ -1,6 +1,7 @@
 package com.intelligentjoy.advertising.api.web.controller;
 
 import com.intelligentjoy.advertising.api.base.model.JsonResult;
+import com.intelligentjoy.advertising.api.web.config.shiro.EmailPasswordToken;
 import com.intelligentjoy.advertising.api.web.config.shiro.PhonePasswordToken;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,22 +16,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("")
 public class LoginController {
 
-    @RequestMapping(value = "login", params = "userName", method = RequestMethod.POST)
-    public Object loginByUserName(String userName, String password) {
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-        //默认不记住密码
-        token.setRememberMe(true);
+    @RequestMapping(value = "/login", params = "username", method = RequestMethod.POST)
+    public Object loginByUserName(String username, String password) {
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);
         return doLogin(token);
     }
 
-    @RequestMapping(value = "login/phone", method = RequestMethod.POST)
-    public Object loginByPhone(String aa, String bb, String password) {
-        PhonePasswordToken token = new PhonePasswordToken(aa, bb, password);
-        //默认不记住密码
-        token.setRememberMe(true);
+    @RequestMapping(value = "/login/phone", method = RequestMethod.POST)
+    public Object loginByPhone(String phoneAreaCode, String phone, String password) {
+        PhonePasswordToken token = new PhonePasswordToken(phoneAreaCode, phone, password, true);
+        return doLogin(token);
+    }
+
+    @RequestMapping(value = "/login/email", method = RequestMethod.POST)
+    public Object loginByPhone(String email, String password) {
+        EmailPasswordToken token = new EmailPasswordToken(email, password, true);
         return doLogin(token);
     }
 
@@ -48,6 +51,7 @@ public class LoginController {
         } catch (ExcessiveAttemptsException e) {
             return JsonResult.fail(1, "您错误的次数太多了吧,封你半小时");
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return JsonResult.fail(1, "运行异常");
         }
     }

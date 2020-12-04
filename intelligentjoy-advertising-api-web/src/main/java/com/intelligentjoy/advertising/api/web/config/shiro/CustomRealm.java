@@ -6,7 +6,10 @@ import com.intelligentjoy.advertising.api.base.interfacees.UserService;
 import com.intelligentjoy.advertising.api.base.model.Resource;
 import com.intelligentjoy.advertising.api.base.model.Role;
 import com.intelligentjoy.advertising.api.base.model.User;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -42,10 +45,17 @@ public abstract class CustomRealm extends AuthorizingRealm {
     @Lazy
     protected ResourceService resourceService;
 
+    /**
+     * 初始化匹配校验器
+     */
     protected abstract void initCredentialsMatcher();
 
-
-    //定义如何获取用户的角色和权限的逻辑，给shiro做权限判断
+    /**
+     * 定义如何获取用户的角色和权限的逻辑，给shiro做权限判断
+     *
+     * @param principals
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //null usernames are invalid
@@ -59,7 +69,22 @@ public abstract class CustomRealm extends AuthorizingRealm {
         return info;
     }
 
+    /**
+     * 加载用户信息
+     *
+     * @param user
+     * @return
+     */
     protected SimpleAuthenticationInfo getAuthenticationInfo(User user) {
+        if (user == null) {
+            throw new UnknownAccountException("用户不存在");
+        }
+        if (!user.getUserStatus()) {
+            throw new DisabledAccountException("账号不可用, 请联系管理员");
+        }
+        if (user.getLocked()) {
+            throw new LockedAccountException("账号被锁定, 请联系管理员");
+        }
         //查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
         //SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
         List<Role> roles = roleService.getRolesByUserId(user.getUserId());

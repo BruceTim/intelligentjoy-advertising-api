@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * 手机号及密码token
+ *
  * @author BruceTim
  * @date 2020-12-03
  */
@@ -55,6 +56,13 @@ public class PhonePasswordToken implements HostAuthenticationToken, RememberMeAu
         this.phoneAreaCode = phoneAreaCode;
         this.phone = phone;
         this.password = password;
+    }
+
+    public PhonePasswordToken(String phoneAreaCode, String phone, String password, boolean rememberMe) {
+        this.phoneAreaCode = phoneAreaCode;
+        this.phone = phone;
+        this.password = password.toCharArray();
+        this.rememberMe = rememberMe;
     }
 
     public PhonePasswordToken(String phoneAreaCode, String phone, char[] password, boolean rememberMe) {
