@@ -8,4 +8,6 @@ public interface RoleService extends BaseService<Role>{
 
     List<Role> getRolesByUserId(Integer userId);
 
+    List<Role> getRoleTreeByUserId(Integer userId);
+
 }

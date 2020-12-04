@@ -3,7 +3,7 @@ package com.intelligentjoy.advertising.api.core.service;
 import com.intelligentjoy.advertising.api.base.interfacees.BaseServiceImpl;
 import com.intelligentjoy.advertising.api.base.interfacees.ResourceService;
 import com.intelligentjoy.advertising.api.base.model.Resource;
-import com.intelligentjoy.advertising.api.base.model.ResourceTree;
+import com.intelligentjoy.advertising.api.base.model.tree.TreeModel;
 import com.intelligentjoy.advertising.api.core.dao.ResourceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,6 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource> implements Re
 
     @Override
     public List<Resource> getResourceTreeByUserId(Integer userId) {
-        return new ResourceTree(getResourcesByUserId(userId)).buildTree();
+        return new TreeModel(getResourcesByUserId(userId)).buildTree();
     }
 }

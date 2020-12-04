@@ -3,6 +3,7 @@ package com.intelligentjoy.advertising.api.core.service;
 import com.intelligentjoy.advertising.api.base.interfacees.BaseServiceImpl;
 import com.intelligentjoy.advertising.api.base.interfacees.RoleService;
 import com.intelligentjoy.advertising.api.base.model.Role;
+import com.intelligentjoy.advertising.api.base.model.tree.TreeModel;
 import com.intelligentjoy.advertising.api.core.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,10 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
     @Override
     public List<Role> getRolesByUserId(Integer userId) {
         return roleDao.getRolesByUserId(userId);
+    }
+
+    @Override
+    public List<Role> getRoleTreeByUserId(Integer userId) {
+        return new TreeModel(roleDao.getRolesByUserId(userId)).buildTree();
     }
 }

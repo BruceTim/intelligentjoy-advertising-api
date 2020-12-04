@@ -1,5 +1,7 @@
 package com.intelligentjoy.advertising.api.base.model;
 
+import com.intelligentjoy.advertising.api.base.model.tree.TreeNode;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +18,7 @@ import java.util.List;
  * @author BruceTim
  */
 @Table(name = "tb_resource")
-public class Resource implements Serializable {
+public class Resource implements TreeNode, Serializable {
 
     private static final long serialVersionUID = 3544897406484560446L;
 
@@ -98,6 +100,7 @@ public class Resource implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
+    @Override
     public Integer getParentId() {
         return parentId;
     }
@@ -122,6 +125,7 @@ public class Resource implements Serializable {
         this.level = level;
     }
 
+    @Override
     public Integer getOrder() {
         return order;
     }
@@ -146,11 +150,18 @@ public class Resource implements Serializable {
         this.updateTime = updateTime;
     }
 
+    @Override
+    public Integer getId() {
+        return resourceId;
+    }
+
+    @Override
     public List<Resource> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Resource> children) {
+    @Override
+    public void setChildren(List children) {
         this.children = children;
     }
 }
