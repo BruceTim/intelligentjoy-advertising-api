@@ -14,14 +14,14 @@ public interface TreeNode {
      *
      * @return
      */
-    Integer getId();
+    Number getId();
 
     /**
      * 父级ID
      *
      * @return
      */
-    Integer getParentId();
+    Number getParentId();
 
     /**
      * 展示排序

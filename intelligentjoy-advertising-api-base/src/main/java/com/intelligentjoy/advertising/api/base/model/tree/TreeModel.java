@@ -38,7 +38,7 @@ public class TreeModel<T extends TreeNode> implements Serializable {
         if (nodes == null || nodes.isEmpty()) {
             return Collections.emptyList();
         }
-        List<TreeNode> nodeList = nodes.stream().filter(e -> 0 == e.getParentId())
+        List<TreeNode> nodeList = nodes.stream().filter(e -> e.getParentId() == null || 0L == e.getParentId().longValue())
                 .map(node -> buildChildTree(node))
                 .sorted(Comparator.comparingInt(TreeNode::getOrder))
                 .collect(Collectors.toList());
