@@ -6,6 +6,38 @@ spring:
     username: intelligentjoy
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 5
+      max-active: 30
+      min-idle: 5
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      filters: stat,wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  redis:
+    host: 10.8.17.4
+    port: 6879
+    password: het@redis
+    database: 8
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        max-wait: -1ms
+        max-active: 8
+        max-idle: 0
+    ssl: false
+    timeout: 30s
 
 #showSql
 logging:
